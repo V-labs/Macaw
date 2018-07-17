@@ -103,12 +103,12 @@ open class SVGSerializer {
     }
 
     fileprivate func polygonToSVG(_ polygon: Polygon) -> String {
-        let points = polygon.points.compactMap { String($0) }.joined(separator: ",")
+        let points = polygon.points.flatMap { String($0) }.joined(separator: ",")
         return tag(SVGPolygonOpenTag, ["points": points])
     }
 
     fileprivate func polylineToSVG(_ polyline: Polyline) -> String {
-        let points = polyline.points.compactMap { String($0) }.joined(separator: ",")
+        let points = polyline.points.flatMap { String($0) }.joined(separator: ",")
         return tag(SVGPolylineOpenTag, ["points": points])
     }
 
