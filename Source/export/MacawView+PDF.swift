@@ -16,20 +16,19 @@ public extension MacawView {
         defer {
             backgroundColor = currentColor
         }
-
+        
         var frame = CGRect(origin: CGPoint.zero, size: size)
         let ctx = CGContext(path as CFURL, mediaBox: &frame, .none)!
-
+        
         ctx.beginPDFPage(.none)
         ctx.translateBy(x: 0.0, y: size.height)
         ctx.scaleBy(
             x: size.width / bounds.width,
             y: -size.height / bounds.height
         )
-
+        
         context.cgContext = ctx
         renderer?.render(in: ctx, force: false, opacity: node.opacity)
-
         ctx.endPDFPage()
     }
 }

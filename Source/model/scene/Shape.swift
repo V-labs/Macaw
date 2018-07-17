@@ -5,25 +5,25 @@ import AppKit
 #endif
 
 open class Shape: Node {
-
+    
     open let formVar: AnimatableVariable<Locus>
     open var form: Locus {
         get { return formVar.value }
         set(val) { formVar.value = val }
     }
-
+    
     open let fillVar: AnimatableVariable<Fill?>
     open var fill: Fill? {
         get { return fillVar.value }
         set(val) { fillVar.value = val }
     }
-
+    
     open let strokeVar: AnimatableVariable<Stroke?>
     open var stroke: Stroke? {
         get { return strokeVar.value }
         set(val) { strokeVar.value = val }
     }
-
+    
     public init(form: Locus, fill: Fill? = nil, stroke: Stroke? = nil, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, mask: Node? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
         self.formVar = AnimatableVariable<Locus>(form)
         self.fillVar = AnimatableVariable<Fill?>(fill)
@@ -38,19 +38,20 @@ open class Shape: Node {
             visible: visible,
             tag: tag
         )
-
+        
         self.formVar.node = self
         self.strokeVar.node = self
         self.fillVar.node = self
     }
-
+    
     override open var bounds: Rect? {
         guard let ctx = createContext() else {
             return .none
         }
-
+        
+        
         var shouldStrokePath = false
-
+        
         if let stroke = stroke {
             RenderUtils.setStrokeAttributes(stroke, ctx: ctx)
             shouldStrokePath = true

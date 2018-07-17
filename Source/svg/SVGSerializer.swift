@@ -115,7 +115,7 @@ open class SVGSerializer {
     fileprivate func pathToSVG(_ path: Path) -> String {
         var d = ""
         for segment in path.segments {
-            d += "\(segment.type) \(segment.data.compactMap { String(Int($0)) }.joined(separator: " "))"
+            d += "\(segment.type) \(segment.data.flatMap { String(Int($0)) }.joined(separator: " "))"
         }
         return tag(SVGPathOpenTag, ["d": d])
     }
